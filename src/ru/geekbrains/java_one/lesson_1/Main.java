@@ -2,7 +2,11 @@ package ru.geekbrains.java_one.lesson_1;
 
 public class Main {
     public static void main(String[] args) {
-        int a = 10, b = 5, c = 11, d = 20 ;
+        int a = 10 ;
+        int b = 5 ;
+        int c = 11; 
+        int d = 20 ;
+        
         //Проверка задания 1
         System.out.println("Результат метода task1 \"Вычисление a * (b + (c / d))\"=" + task1(a, b, c, d)
                 + " Параметры метода: a=" + a + ", b=" + b + ", c=" + c + ", d=" + d) ;
@@ -83,12 +87,6 @@ public class Main {
     Для проверки работы вывести результаты работы метода в консоль
     */
     public static boolean task5(int year) {
-        if(year % 400 == 0) {
-            return true ;
-        } else if(year % 100 == 0) {
-            return false ;
-        } else {
-            return year % 4 == 0;
-        }
+        return year % 400 == 0 || year % 4 == 0 && year % 100 != 0 ; 
     }
 }
