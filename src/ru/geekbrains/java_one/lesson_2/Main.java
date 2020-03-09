@@ -100,15 +100,6 @@ public class Main {
     5 * Создать квадратный целочисленный массив (количество строк и столбцов одинаковое),
     заполнить его диагональные элементы единицами, используя цикл(ы);
     */
-    public static void diagonalInit1(int[][] array) {
-        for(int y = 0 ; y < array.length ; y++) {
-            for(int x = 0 ; x < array.length ; x++) {
-                if(x == y || x + y == array.length - 1)
-                    array[y][x] = 1;
-            }
-        }
-    }
-
     public static void diagonalInit(int[][] array) {
         for(int i = 0 ; i < array.length ; i++) {
             array[i][i] = 1;
@@ -172,7 +163,7 @@ public class Main {
                     array[j] = array[j - 1];
                 }
                 array[0] = tempValue;
-                
+
             } else {
                 int tempValue = array[0];
 
