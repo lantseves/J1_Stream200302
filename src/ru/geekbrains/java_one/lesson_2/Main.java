@@ -46,13 +46,7 @@ public class Main {
     */
     public static void reversValue(int[] array) {
         for(int i = 0 ; i < array.length ; i++) {
-            if(array[i] == 0)
-                array[i] = 1 ;
-                // если в массиве будут не только 0 и 1
-            else if(array[i] == 1)
-                array[i] = 0 ;
-
-            //array[i] = array[i] == 0 ? 1 : 0 ;
+            array[i] = array[i] == 0 ? 1 : 0 ;
         }
     }
 
@@ -61,9 +55,8 @@ public class Main {
     Написать метод, который помощью цикла заполнит его значениями 1 4 7 10 13 16 19 22;
     */
     public static void initArray(int[] array) {
-        int count = 1 ;
-        for(int i = 0 ; i < array.length ; i++ , count+=3) {
-            array[i] = count ;
+        for(int i = 0 ; i < array.length ; i++) {
+            array[i] = i * 3 + 1    ;
         }
     }
 
@@ -107,12 +100,19 @@ public class Main {
     5 * Создать квадратный целочисленный массив (количество строк и столбцов одинаковое),
     заполнить его диагональные элементы единицами, используя цикл(ы);
     */
-    public static void diagonalInit(int[][] array) {
+    public static void diagonalInit1(int[][] array) {
         for(int y = 0 ; y < array.length ; y++) {
             for(int x = 0 ; x < array.length ; x++) {
                 if(x == y || x + y == array.length - 1)
                     array[y][x] = 1;
             }
+        }
+    }
+
+    public static void diagonalInit(int[][] array) {
+        for(int i = 0 ; i < array.length ; i++) {
+            array[i][i] = 1;
+            array[i][array.length - 1 - i] = 1;
         }
     }
 
@@ -164,23 +164,22 @@ public class Main {
     public static void shiftValue(int[] array ,int n) {
         int lastIndex = array.length - 1 ;
 
-        if(n > 0) {
-            for(int i = 0 ; i < n ; i++) {
-                int tempValue = array[lastIndex] ;
+        for (int i = 0 ; i < Math.abs(n) ; i++) {
+            if (n > 0) {
+                int tempValue = array[lastIndex];
 
-                for (int j = lastIndex ; j > 0 ; j--) {
-                    array[j] = array[j - 1] ;
+                for (int j = lastIndex; j > 0; j--) {
+                    array[j] = array[j - 1];
                 }
-                array[0] = tempValue ;
-            }
-        } else {
-            for(int i = 0 ; i < Math.abs(n) ; i++) {
-                int tempValue = array[0] ;
+                array[0] = tempValue;
+                
+            } else {
+                int tempValue = array[0];
 
-                for (int j = 0 ; j < lastIndex ; j++) {
-                    array[j] = array[j + 1] ;
+                for (int j = 0; j < lastIndex; j++) {
+                    array[j] = array[j + 1];
                 }
-                array[lastIndex] = tempValue ;
+                array[lastIndex] = tempValue;
             }
         }
     }
