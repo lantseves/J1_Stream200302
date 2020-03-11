@@ -63,11 +63,13 @@ public class MyClass {
         int x;
         int y;
         
-        //Пытается поставить выйгрышный ход если есть.
-        isNextMoveWin(DOT_AI , DOT_AI) ;
+         //Пытается поставить выйгрышный ход если есть.
+        if(isNextMoveWin(DOT_AI , DOT_AI)) 
+            return ;
         
         // Мешает игроку поставить победный ход
-        isNextMoveWin(DOT_HUMAN , DOT_AI) ;
+        if(isNextMoveWin(DOT_HUMAN , DOT_AI))
+            return ;
         
         //Рандом если выйгрышных ход не найден и блокировать победу не требуется
         do {
