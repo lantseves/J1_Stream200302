@@ -63,7 +63,7 @@ public class MyClass {
         int x;
         int y;
         
-         //Пытается поставить выйгрышный ход если есть.
+        //Пытается поставить выйгрышный ход если есть.
         if(isNextMoveWin(DOT_AI , DOT_AI)) 
             return ;
         
