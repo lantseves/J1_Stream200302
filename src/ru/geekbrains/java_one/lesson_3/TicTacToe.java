@@ -83,7 +83,7 @@ public class MyClass {
     private static boolean isNextMoveWin(char cWins , char valueMove) {
         for(int y = 0 ; y < fieldSizeY ; y++) {
             for(int x = 0 ; x < fieldSizeX ; x++ ) {
-                if(!isEmptyCell(x, y)) {
+                if(isEmptyCell(x, y)) {
                     field[y][x] = cWins;
                 
                     if(checkWin(cWins)) {
