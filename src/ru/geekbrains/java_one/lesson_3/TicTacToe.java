@@ -3,7 +3,7 @@ package ru.geekbrains.java_one.lesson_3;
 import java.util.Random;
 import java.util.Scanner;
 
-public class TicTacToe {
+public class MyClass {
     private static final char DOT_HUMAN = 'X';
     private static final char DOT_AI = 'O';
     private static final char DOT_EMPTY = '_';
@@ -20,7 +20,7 @@ public class TicTacToe {
     private static void initField() {
         fieldSizeY = 3;
         fieldSizeX = 3;
-        pointToWin = 2;
+        pointToWin = 3;
 
         field = new char[fieldSizeY][fieldSizeX];
         for (int y = 0; y < fieldSizeY; y++) {
@@ -41,7 +41,7 @@ public class TicTacToe {
     }
 
     private static boolean isValidCell(int x, int y) {
-        return x >= 0 && x < fieldSizeX && y >=0 && y < fieldSizeY;
+        return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
     }
 
     private static boolean isEmptyCell(int x, int y) {
@@ -62,11 +62,39 @@ public class TicTacToe {
     private static void aiTurn() {
         int x;
         int y;
+        
+        //Пытается поставить выйгрышный ход если есть.
+        isNextMoveWin(DOT_AI , DOT_AI) ;
+        
+        // Мешает игроку поставить победный ход
+        isNextMoveWin(DOT_HUMAN , DOT_AI) ;
+        
+        //Рандом если выйгрышных ход не найден и блокировать победу не требуется
         do {
             x = RANDOM.nextInt(fieldSizeX);
             y = RANDOM.nextInt(fieldSizeY);
         } while (!isEmptyCell(x, y));
         field[y][x] = DOT_AI;
+    }
+    
+    //Проверяет есть ли возможность выйграть в следующем ходе
+    private static boolean isNextMoveWin(char cWins , char valueMove) {
+        for(int y = 0 ; y < fieldSizeY ; y++) {
+            for(int x = 0 ; x < fieldSizeX ; x++ ) {
+                if(!isEmptyCell(x, y)) {
+                    field[y][x] = cWins;
+                
+                    if(checkWin(cWins)) {
+                        field[y][x] = valueMove;
+                        return true ;
+                    }
+                    else
+                        field[y][x] = DOT_EMPTY; 
+                }
+            }
+        }
+        
+        return false ;
     }
 
 
@@ -82,11 +110,9 @@ public class TicTacToe {
     private static boolean checkWin(char c) {
 
         // проверка по Y и X
-        for (int y = 0; y < fieldSizeY ; y++) {
-            for (int x = 0; x < fieldSizeX ; x++) {
-                if (isVerticalOrHorizontalWin(c, x, y))
-                    return true ;
-            }
+        for (int i = 0; i < fieldSizeY ; i++) {
+            if (isVerticalOrHorizontalWin(c, i, i))
+                return true ;
         }
 
         // Проверка диагоналей
