@@ -46,7 +46,7 @@ public class Employee {
     //6. * Создать метод, повышающий зарплату всем сотрудникам старше 45 лет на 5000.
     public static void upSalaryEmployee(Employee[] employees) {
         for (int i = 0; i < employees.length; i++) {
-            if (employees[i].age > 45)
+            if (employees[i].age >= 45)
                 employees[i].salary += 5000 ;
         }
     }
