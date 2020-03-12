@@ -16,7 +16,7 @@ public class Main {
                 new Employee("Андреев", 60000 , 60 , "Руководитель проекта")} ;
 
         for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getAge() > 40)
+            if (employees[i].getAge() >= 40)
                 System.out.println("Фамилия: " + employees[i].getSurname() +
                         " Зарплата: " + employees[i].getSalary() +
                         " Возраст:" + employees[i].getAge() +
