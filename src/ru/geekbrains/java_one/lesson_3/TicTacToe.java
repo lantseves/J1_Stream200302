@@ -3,7 +3,7 @@ package ru.geekbrains.java_one.lesson_3;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MyClass {
+public class TicTacToe {
     private static final char DOT_HUMAN = 'X';
     private static final char DOT_AI = 'O';
     private static final char DOT_EMPTY = '_';
