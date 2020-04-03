@@ -58,7 +58,6 @@ public class MainCircles extends JFrame {
         for (int i = 0 ; i < countSprites ; i++) {
             if (sprites[i] instanceof Ball) {
                 if (isClickedBall(x, y, (Ball) sprites[i])) {
-                    System.out.println("Clicked 3");
                     sprites[i] = null ;
                     reindexSprites(i);
                     return;
