@@ -1,9 +1,16 @@
 package ru.geekbrains.java_two.lesson_4;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
 
@@ -50,6 +57,31 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         log.setLineWrap(true);
         log.setWrapStyleWord(true);
         log.setEditable(false);
+        /*
+        Создать лог в файле (показать комментарием, где и как Вы планируете писать сообщение в файловый журнал).
+        Сделал при добавления текста в log, но мне не нравится, что это к классе GUI, а не контроллере.
+        */
+        log.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                try {
+                    String changeStr = e.getDocument().getText(e.getOffset(), e.getLength()) ;
+                    writeMessageInLogFile(changeStr);
+                } catch (BadLocationException ex) {
+                    uncaughtException(Thread.currentThread(), ex);
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
         cbAlwaysOnTop.addActionListener(this);
 
         panelTop.add(tfIPAddress);
@@ -60,7 +92,16 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         panelTop.add(btnLogin);
         panelBottom.add(btnDisconnect, BorderLayout.WEST);
         panelBottom.add(tfMessage, BorderLayout.CENTER);
+        tfMessage.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    clickedBtnSend();
+                }
+            }
+        });
         panelBottom.add(btnSend, BorderLayout.EAST);
+        btnSend.addActionListener(this);
 
         add(scrUser, BorderLayout.EAST);
         add(scrLog, BorderLayout.CENTER);
@@ -74,9 +115,31 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         Object src = e.getSource();
         if (src == cbAlwaysOnTop) {
             setAlwaysOnTop(cbAlwaysOnTop.isSelected());
-        } else {
+        } else if(src == btnSend) {
+            clickedBtnSend();
+        }
+        else {
             throw new RuntimeException("Unknown source:" + src);
         }
+    }
+
+    private void clickedBtnSend() {
+        sendMessage(tfMessage.getText());
+        tfMessage.setText("");
+    }
+
+    private void sendMessage(String message) {
+        log.append(message + "\n");
+
+    }
+
+    /*
+    Заглушка, в задание (показать комментарием, где и как Вы планируете писать сообщение в файловый журнал)
+    Как я сделал с крестиками и ноликами, логику хочу вынести в отдельный от GUI класс
+    */
+    private void writeMessageInLogFile(String message) {
+        System.out.println(message);
+        //TODO impl next lesson
     }
 
     @Override
