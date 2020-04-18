@@ -5,7 +5,7 @@ import sun.net.idn.Punycode;
 import java.util.Arrays;
 
 public class Main {
-    static final int size = 6;
+    static final int size = 10000000;
     static final int h = size / 2 ;
 
     public static void main(String[] args) {
